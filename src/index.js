@@ -34,28 +34,30 @@ function onSearch(e) {
         });
     }
     
-    fetchRequest();
-
-    refs.loadMoreBtn.classList.remove("is-hidden");    
+    fetchRequest();       
 }
 
 async function fetchRequest() {
     try {
         const gallery = await fetchImage(refs.sQuery, refs.pageToLoad);
+        
+        if (gallery.hits.length === 0) {
+            return error({
+                text: "Requested images not found :/",
+                delay: 1500
+            });
+        }
+
         createMarkup(gallery.hits);
     } catch (e) {
         console.log(e);
-
-        return error({
-        text: "Country not found",
-        delay: 1500
-        });
     }
 }
 
 function createMarkup(galleryList) {
     const galleryMarkup = galleryList.map(galleryCards).join('');
     refs.galleryContainer.insertAdjacentHTML('beforeend', galleryMarkup);
+    refs.loadMoreBtn.classList.remove("is-hidden"); 
 }
 
 function onClick() {
