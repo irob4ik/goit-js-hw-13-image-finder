@@ -8,7 +8,7 @@ import "../node_modules/@pnotify/core/dist/BrightTheme.css";
 import _ from 'lodash';
 
 import galleryCards from './templates/gallery_cards.hbs';
-import fetchImage from './js/apiService';
+import fetchImage from './apiService';
 
 const refs = {
     searchForm: document.querySelector('#js-search-form'),
