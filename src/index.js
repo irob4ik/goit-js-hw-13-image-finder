@@ -61,6 +61,7 @@ function createMarkup(galleryList) {
 function onClick() {
     refs.pageToLoad += 1;
     fetchRequest();
+    
 }
 
 function clearMarkup() {
