@@ -51,6 +51,11 @@ async function fetchAndDraw() {
         }
 
         createMarkup(gallery.hits);
+
+        refs.galleryContainer.scrollIntoView({
+            behavior: 'smooth',
+            block: 'end',
+        });
         
     } catch (e) {
         console.log(e);
