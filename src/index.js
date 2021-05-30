@@ -19,7 +19,7 @@ const refs = {
 }
 
 refs.searchForm.addEventListener('input', _.debounce(onSearch, 500));
-refs.loadMoreBtn.addEventListener('click', onClick);
+refs.loadMoreBtn.addEventListener('click', onBtnClick);
 
 function onSearch(e) {
     clearMarkup();
@@ -34,10 +34,12 @@ function onSearch(e) {
         });
     }
     
-    fetchRequest();       
+    fetchAndDraw();
+
+    refs.loadMoreBtn.classList.remove("is-hidden");
 }
 
-async function fetchRequest() {
+async function fetchAndDraw() {
     try {
         const gallery = await fetchImage(refs.sQuery, refs.pageToLoad);
         
@@ -49,6 +51,7 @@ async function fetchRequest() {
         }
 
         createMarkup(gallery.hits);
+        
     } catch (e) {
         console.log(e);
     }
@@ -57,12 +60,11 @@ async function fetchRequest() {
 function createMarkup(galleryList) {
     const galleryMarkup = galleryList.map(galleryCards).join('');
     refs.galleryContainer.insertAdjacentHTML('beforeend', galleryMarkup);
-    refs.loadMoreBtn.classList.remove("is-hidden"); 
 }
 
-function onClick() {
+function onBtnClick() {
     refs.pageToLoad += 1;
-    fetchRequest();    
+    fetchAndDraw();    
 }
 
 function clearMarkup() {
